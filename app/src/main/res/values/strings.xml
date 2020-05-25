@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TestNauka</string>
+    <string name="change_calendar">Редактирование календаря</string>
+    <string name="change_employees">Редактирование Сотрудников</string>
+    <string name="change_department">Редактирование Департаментов</string>
+    <string name="employees">Сотрудники:</string>
+    <string name="location">Местоположение:</string>
+    <string name="department">Отдел:</string>
+    <string name="departmentId">Отдел номер:</string>
+</resources>
