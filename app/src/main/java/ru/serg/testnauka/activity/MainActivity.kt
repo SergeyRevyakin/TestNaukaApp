@@ -7,13 +7,18 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import dagger.Module
+import dagger.Provides
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import ru.serg.testnauka.DependencyComponent
 import ru.serg.testnauka.R
 import ru.serg.testnauka.api.TestNaukaApi
 import ru.serg.testnauka.model.Department
 import ru.serg.testnauka.model.Employee
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,35 +42,15 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val employeeList = getEmlp()
     }
 
-
-
-    private suspend fun test2() {
-//        val departResp = TestNaukaApi.invoke().getAllDepartments()
-//
-//        val emplResp = TestNaukaApi.invoke().getAllEmployees()
-//
-//        //val singleEmlp = TestNaukaApi.invoke().getEmployeeById(1)
-//
-//
-//        val empList: List<Employee> = listOf(
-//            Employee(name = "LOL", idNumber = 1111L, address = "KEK"),
-//            Employee(name = "BERG", idNumber = 1111L, address = "KFAd"),
-//            Employee(name = "WERO", idNumber = 1111L, address = "FSD")
-//        )
-//        val dep = Department(name = "DOES", location = "IT WORKS", employee = empList)
-//
-//        val strrr = "!!!"
-//
-//        TestNaukaApi.invoke().postDepartment(dep)
-//
-//        runOnUiThread {
-//            textview.text = departResp?.get(1)?.name ?: "LOL"
-//            //textView2.text = singleEmlp?.name
-//            textView.text = emplResp?.first()?.department?.name ?: "LOL"
-//            textview.setTextColor(getColor(R.color.secondaryDarkColor))
-//        }
+    fun getEmlp(): List<Employee> {
+        var result: List<Employee> = listOf()
+        GlobalScope.launch {
+            result = TestNaukaApi.invoke().getAllEmployees()
+        }
+        return result
     }
 }
 

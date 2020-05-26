@@ -1,5 +1,7 @@
 package ru.serg.testnauka.api
 
+import dagger.Module
+import dagger.Provides
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -12,7 +14,7 @@ import java.time.LocalDate
 import java.util.concurrent.TimeUnit
 
 const val BASE_URL = "http://10.0.2.2:8080/"
-
+@Module
 interface TestNaukaApi {
     @GET("/department/all")
     suspend fun getAllDepartments(): List<Department>
@@ -51,6 +53,7 @@ interface TestNaukaApi {
     suspend fun getCalendarCodes (): ArrayList<CalendarCode>
 
     companion object{
+
         operator fun invoke():TestNaukaApi{
             val okHttpClient = OkHttpClient.Builder()
                 .connectTimeout(10, TimeUnit.SECONDS)

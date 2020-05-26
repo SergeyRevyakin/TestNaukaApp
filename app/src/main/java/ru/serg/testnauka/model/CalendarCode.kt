@@ -6,6 +6,6 @@ data class CalendarCode(
     val id: Int? = 0
 ){
     override fun toString(): String {
-        return "$code, $description"
+        return "$code   $description"
     }
 }
