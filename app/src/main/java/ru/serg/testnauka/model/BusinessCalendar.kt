@@ -6,6 +6,6 @@ data class BusinessCalendar(
 
     val id: Int? = 0,
     val date: String?, //LocalDate? = LocalDate.now(),
-    val code: CalendarCode,
+    var code: CalendarCode,
     val employee: Employee
 )

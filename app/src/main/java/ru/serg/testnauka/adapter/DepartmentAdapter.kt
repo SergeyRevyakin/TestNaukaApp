@@ -9,7 +9,6 @@ import ru.serg.testnauka.model.Department
 
 class DepartmentAdapter(val department: Department) : Item<ViewHolder>() {
     override fun getLayout(): Int {
-
         return R.layout.cardview_department
     }
 

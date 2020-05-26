@@ -24,14 +24,14 @@ class DayOfCalendarActivity : AppCompatActivity() {
 
         getEmployeeList()
 
-        //textView3.text = listOfDay?.size.toString()//get(1)?.employee?.name ?: "LOL"
+        textView3.text = listOfDay?.size.toString()//get(1)?.employee?.name ?: "LOL"
     }
 
     fun getEmployeeList(){
-        if (!date.isNullOrEmpty()) {
-            runBlocking {
-                listOfDay = TestNaukaApi.invoke().getCalendarDay(date!!)
-            }
-        }
+//        if (!date.isNullOrEmpty()) {
+//            runBlocking {
+//                listOfDay = TestNaukaApi.invoke().getCalendarDay(date)
+//            }
+//        }
     }
 }

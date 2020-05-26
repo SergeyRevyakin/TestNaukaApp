@@ -8,6 +8,7 @@ import ru.serg.testnauka.model.BusinessCalendar
 import ru.serg.testnauka.model.CalendarCode
 import ru.serg.testnauka.model.Department
 import ru.serg.testnauka.model.Employee
+import java.time.LocalDate
 import java.util.concurrent.TimeUnit
 
 const val BASE_URL = "http://10.0.2.2:8080/"
@@ -38,11 +39,16 @@ interface TestNaukaApi {
 
     @GET("/businesscalendar/date={date}")
     suspend fun getCalendarDay(
-        @Path("date") date:String
+        @Path("date") date:LocalDate
     ): List<BusinessCalendar>?
 
+    @PUT("/businesscalendar/put")
+    suspend fun putCalendar(
+        @Body businessCalendar: BusinessCalendar
+    )
+
     @GET("/calendarcode/")
-    suspend fun getCalendarCodes (): List<CalendarCode>
+    suspend fun getCalendarCodes (): ArrayList<CalendarCode>
 
     companion object{
         operator fun invoke():TestNaukaApi{
