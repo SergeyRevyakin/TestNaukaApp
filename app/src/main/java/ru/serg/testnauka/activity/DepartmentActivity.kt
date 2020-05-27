@@ -1,27 +1,16 @@
 package ru.serg.testnauka.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.GsonBuilder
-import com.xwray.groupie.ViewHolder
 import com.xwray.groupie.GroupAdapter
-import kotlinx.android.synthetic.main.activity_department.*
-import kotlinx.android.synthetic.main.activity_department_details.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.toolbar
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.xwray.groupie.ViewHolder
 import kotlinx.coroutines.runBlocking
-import okhttp3.internal.wait
 import ru.serg.testnauka.R
 import ru.serg.testnauka.adapter.DepartmentAdapter
 import ru.serg.testnauka.api.TestNaukaApi
@@ -45,9 +34,7 @@ class DepartmentActivity : AppCompatActivity() {
             finish()
         }
 
-        runBlocking {
-            initConnection()
-        }
+        initConnection()
 
         recyclerView = findViewById(R.id.recyclerView_department)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -56,7 +43,7 @@ class DepartmentActivity : AppCompatActivity() {
         }
 
         recyclerView.adapter = adapter
-        
+
         adapter.setOnItemClickListener { item, view ->
             val dep = item as DepartmentAdapter
             val intent = Intent(view.context, DepartmentDetailsActivity::class.java)
@@ -65,23 +52,20 @@ class DepartmentActivity : AppCompatActivity() {
     }
 
     override fun onRestart() {
-        GlobalScope.launch {
-            initConnection()
-        }
+        initConnection()
         super.onRestart()
     }
 
     override fun onResume() {
-        GlobalScope.launch {
-            initConnection()
-        }
+        initConnection()
         super.onResume()
     }
 
-    private suspend fun initConnection() {
-        departmentList = TestNaukaApi.invoke().getAllDepartments()
+    private fun initConnection() {
+        runBlocking {
+            departmentList = TestNaukaApi.invoke().getAllDepartments()
+        }
     }
-
 
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {

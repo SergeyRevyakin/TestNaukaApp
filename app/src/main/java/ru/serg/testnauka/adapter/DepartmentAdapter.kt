@@ -13,7 +13,7 @@ class DepartmentAdapter(val department: Department) : Item<ViewHolder>() {
     }
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
-        viewHolder.itemView.textView_departmentName.text = department.name
+        viewHolder.itemView.textView_departmentId.text = department.name
         viewHolder.itemView.textView_numberOfEmpl.text = department.employee?.size.toString()
         viewHolder.itemView.textView_location.text = department.location
     }

@@ -11,6 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.EmployeeDetailsActivity"></activity>
+        <activity android:name=".activity.CreateEmployeeActivity" />
         <activity android:name=".activity.CreateDepartmentActivity" />
         <activity android:name=".activity.DepartmentDetailsActivity" />
         <activity android:name=".activity.CalendarActivity" />

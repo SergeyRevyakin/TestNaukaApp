@@ -1,14 +1,12 @@
 package ru.serg.testnauka.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_calendar.*
 import kotlinx.coroutines.runBlocking
-
 import ru.serg.testnauka.R
 import ru.serg.testnauka.adapter.CalendarEmployeeAdapter
 import ru.serg.testnauka.api.TestNaukaApi
@@ -37,6 +35,7 @@ class CalendarActivity : AppCompatActivity() {
 
         getCodes()
         getBusinessDayList()
+        getEmployeeList()
 
 
         val recyclerView: RecyclerView = findViewById(R.id.recycleview_calendar)
@@ -46,21 +45,35 @@ class CalendarActivity : AppCompatActivity() {
 //        }
 
         recyclerView.adapter = CalendarEmployeeAdapter(
-            businessCalendarList!!, calendarCodes,
+            businessCalendarList, calendarCodes,
             LocalDate.now(), this
         )
 
         calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
             date = LocalDate.of(year, month + 1, dayOfMonth)
             getBusinessDayList()
-            Toast.makeText(this, "Its ${businessCalendarList.size}", Toast.LENGTH_SHORT).show()
-          if (businessCalendarList.isEmpty()) {
-              getEmployeeList()
-            employeeList.forEach{
-                businessCalendarList.add(BusinessCalendar(date = date.toString(), employee = it, code = calendarCodes[0]))
+            //Toast.makeText(this, "Its ${businessCalendarList.size}", Toast.LENGTH_SHORT).show()
+            if (businessCalendarList.size < employeeList.size) {
+                employeeList.forEach {
+                    //if (businessCalendarList.)
+                    if (!businessCalendarList.contains(
+                            BusinessCalendar(
+                                date = date.toString(),
+                                employee = it
+                            )
+                        )
+                    ) {
+                        businessCalendarList.add(
+                            BusinessCalendar(
+                                date = date.toString(),
+                                employee = it,
+                                code = calendarCodes[0]
+                            )
+                        )
+                    }
+                }
+                //businessCalendarList = listOf(BusinessCalendar(date = date.toString(), employee = )
             }
-            //businessCalendarList = listOf(BusinessCalendar(date = date.toString(), employee = )
-        }
             recyclerView.adapter =
                 CalendarEmployeeAdapter(businessCalendarList, calendarCodes, date, this)
         }
@@ -80,7 +93,7 @@ class CalendarActivity : AppCompatActivity() {
     }
 
     //@Provides
-    private fun getEmployeeList(){
+    private fun getEmployeeList() {
 
         runBlocking {
             employeeList = TestNaukaApi.invoke().getAllEmployees()

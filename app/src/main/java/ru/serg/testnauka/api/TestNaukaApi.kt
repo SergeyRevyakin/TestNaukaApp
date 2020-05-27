@@ -1,7 +1,6 @@
 package ru.serg.testnauka.api
 
 import dagger.Module
-import dagger.Provides
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -30,12 +29,23 @@ interface TestNaukaApi {
     @POST("department/post")
     suspend fun postDepartment(@Body department: Department)
 
+    @POST("employee/post")
+    suspend fun postEmployee(@Body employee: Employee)
+
     @Headers("Content-Type: application/json")
     @PUT("department/put")
     suspend fun putDepartment(@Body department: Department)
 
+    @PUT("employee/put")
+    suspend fun putEmployee(@Body employee: Employee)
+
     @DELETE("department/del={id}")
     suspend fun deleteDepartment(
+        @Path("id") id:Int
+    )
+
+    @DELETE("employee/del={id}")
+    suspend fun deleteEmployee(
         @Path("id") id:Int
     )
 
